@@ -7,9 +7,10 @@ The distribution consists of two normal distributions and only times between 7am
 ![Alt text](/distribution.png?raw=true "Distribution")
 
 ## How to use
-The program is called "humane" and should be imported into the program that you want to schedule a function in. 
+The program is called "humane". 
 
-In humane there is a function called "sched" that takes two arguments: the function you want to schedule and the frequency (given as number of times per day).
+In "humane" there is a function called "sched" that takes two arguments: \
+A function you want to schedule and the frequency (given as number of times per day).
 
 humane.sched(function, frequency)
 
