@@ -16,7 +16,7 @@ humane.sched(function, frequency)
 ```
 
 ## Example code
-
+The following programs will schedule the function "hello" 10000 times every day.
 ```
 import humane
 
