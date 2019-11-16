@@ -9,10 +9,11 @@ The distribution consists of two normal distributions and only times between 7am
 ## How to use
 The program is called "humane". 
 
-In "humane" there is a function called "sched" that takes two arguments: \
-A function you want to schedule and the frequency (given as number of times per day).
-
+In "humane" there is a function called "sched" that takes two arguments namely: \
+A function that you want to schedule and the frequency (given as number of times per day).
+```
 humane.sched(function, frequency)
+```
 
 ## Example code
 
