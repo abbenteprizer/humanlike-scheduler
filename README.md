@@ -1,12 +1,17 @@
-# Humane scheduler
+# Human-like scheduler
 This program is a human-like scheduler that schedules user-specified functions in a manner that mimics the distribution of internet traffic per day.
 
-## Example distribution
+## Distribution
+The distribution consists of two normal distributions and only times between 7am and 1am are accepted. As can be seen in the figure below, the probability of scheduling a task after 22pm is quite low (might add more distributions in the future). 
 
-![Alt text](/distribution.png?raw=true "Title")
+![Alt text](/distribution.png?raw=true "Distribution")
 
 ## How to use
+The program is called "humane" and should be imported into the program that you want to schedule a function in. 
 
+In humane there is a function called "sched" that takes two arguments: the function you want to schedule and the frequency (given as number of times per day).
+
+humane.sched(function, frequency)
 
 ## Example code
 
@@ -16,7 +21,7 @@ import humane
 def hello():
 	print("hey you")
 
-humane.humane(hello, 10000)
+humane.sched(hello, 10000)
 ```
 
 Or if you are using a function with arguments.
@@ -27,6 +32,6 @@ import humane
 def hello(name):
 	print("hi", name)
 
-humane.humane(lambda: hello("Dave"), 10000)
+humane.sched(lambda: hello("Dave"), 10000)
 ```
 
