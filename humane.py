@@ -2,7 +2,7 @@
 # @Author: abbenteprizer
 # @Date:   2019-11-15 13:56:58
 # @Last Modified by:   abbenteprizer
-# @Last Modified time: 2019-11-16 16:53:05
+# @Last Modified time: 2019-11-16 22:18:08
 '''
 Humane schedules tasks following a distribution that mimics 
 internet traffic. 
@@ -105,26 +105,25 @@ def sample_to_time(samples):
 # print(date_list[0].hour)
 
 def humane_sched(function, freq): 
-	print("entered")
-	schedule.clear() # remove all scheduled jobs?
+	schedule.clear(tag="run_once") # remove old jobs
 	date_list = sample_to_time(generate_samples(freq))
 	date_list.sort()
 	# now we schedule the function for each time
 	print(date_list)
 	for task in date_list:
-		schedule.every().day.at(task.strftime("%H:%M"))
+		schedule.every().day.at(task.strftime("%H:%M:%S")).do(function).tag("run_once")
 
 def humane(function, freq): 
 	humane_sched(function, freq)
-	# schedule.every().day.at("6:00").do(humane_sched(function, freq)) # change time if you want
+	# change the time to run schedule jobs if you want
+	schedule.every().day.at("12:00").do(humane_sched, function, freq)
 	while True:
 		schedule.run_pending() # runs waiting tasks
 		time.sleep(1)
-		print(schedule.jobs)
 
 def hello ():
-	print("hello")
+	print("hello at time ", datetime.datetime.now())
 
-humane(hello, 1000)
+# humane(hello, 100)
 
 
