@@ -2,14 +2,14 @@
 # @Author: abbenteprizer
 # @Date:   2019-11-15 13:56:58
 # @Last Modified by:   abbenteprizer
-# @Last Modified time: 2019-11-16 16:31:57
+# @Last Modified time: 2019-11-16 16:53:05
 '''
 Humane schedules tasks following a distribution that mimics 
 internet traffic. 
 
 Example use:
 
-sched(function, "dist", freq)
+humane(function, "dist", freq)
 
 '''
 import numpy as np
@@ -18,6 +18,7 @@ from scipy import stats
 import matplotlib.pyplot as plt
 import datetime 
 import schedule
+import time
 ### ###
 ### Printout of samples generated from the distributions ###
 def print_samples_graph():
@@ -93,6 +94,37 @@ def sample_to_time(samples):
 
 ### Now we have a list of datetime object ( no year yet) ###
 ### lets fix the scheduling ###
+# scheduling works by running the function humane(function, "dist", freq)
+# # every day.
+# date_list = sample_to_time(generate_samples(10))
+# print(date_list)
+# print("sorted_next")
+# date_list.sort()
+# print(date_list)
 
-date_list = sample_to_time(generate_samples(10))
-print(date_list[0].hour)
+# print(date_list[0].hour)
+
+def humane_sched(function, freq): 
+	print("entered")
+	schedule.clear() # remove all scheduled jobs?
+	date_list = sample_to_time(generate_samples(freq))
+	date_list.sort()
+	# now we schedule the function for each time
+	print(date_list)
+	for task in date_list:
+		schedule.every().day.at(task.strftime("%H:%M"))
+
+def humane(function, freq): 
+	humane_sched(function, freq)
+	# schedule.every().day.at("6:00").do(humane_sched(function, freq)) # change time if you want
+	while True:
+		schedule.run_pending() # runs waiting tasks
+		time.sleep(1)
+		print(schedule.jobs)
+
+def hello ():
+	print("hello")
+
+humane(hello, 1000)
+
+
