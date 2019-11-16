@@ -2,7 +2,7 @@
 # @Author: abbenteprizer
 # @Date:   2019-11-15 13:56:58
 # @Last Modified by:   abbenteprizer
-# @Last Modified time: 2019-11-16 15:46:38
+# @Last Modified time: 2019-11-16 16:31:57
 '''
 Humane schedules tasks following a distribution that mimics 
 internet traffic. 
@@ -16,7 +16,8 @@ import numpy as np
 from scipy.stats import norm
 from scipy import stats
 import matplotlib.pyplot as plt
-
+import datetime 
+import schedule
 ### ###
 ### Printout of samples generated from the distributions ###
 def print_samples_graph():
@@ -72,11 +73,26 @@ def print_lots_generated_samples():
 	plt.hist(samples, bins=100, density=True)
 	plt.show()
 
-print_lots_generated_samples()
+# print_lots_generated_samples()
 
 ### convert samples to dates ###
 # hours are already good, lets convert number 100 to minutes and seconds
 def sample_to_time(samples):
+	date_list = []
 	for number in samples:
 		hours = int(number)
-		hours = 
+		minutes = int(((number % 1) * 100) * 60 / 100)
+		seconds = int(((((number % 1) * 100) % 1) * 100) * 60 / 100)
+		# print(number)
+		# print("hours = ",hours)
+		# print("minutes = ", minutes)
+		# print("seoncdonds = ", seconds)
+		# print()
+		date_list.append(datetime.time(hours,minutes,seconds))
+	return date_list
+
+### Now we have a list of datetime object ( no year yet) ###
+### lets fix the scheduling ###
+
+date_list = sample_to_time(generate_samples(10))
+print(date_list[0].hour)
