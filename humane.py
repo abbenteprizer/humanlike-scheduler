@@ -2,7 +2,7 @@
 # @Author: abbenteprizer
 # @Date:   2019-11-15 13:56:58
 # @Last Modified by:   abbenteprizer
-# @Last Modified time: 2019-11-16 15:40:25
+# @Last Modified time: 2019-11-16 15:46:38
 '''
 Humane schedules tasks following a distribution that mimics 
 internet traffic. 
@@ -39,7 +39,7 @@ def print_samples_graph():
 	plt.show()
 
 
-def generate_sample(num_samples):
+def generate_samples(num_samples):
 	np.random.seed()
 	distributions = [
 	    {"type": np.random.normal, "kwargs": {"loc": 10, "scale": 2}},
@@ -52,18 +52,13 @@ def generate_sample(num_samples):
 	for idx, distr in enumerate(distributions):
 	    data[:, idx] = distr["type"](size=(num_samples,), **distr["kwargs"])
 	random_idx = np.random.choice(np.arange(num_distr), size=(num_samples,), p=coefficients)
-	# print(random_idx)
 	samples = data[np.arange(num_samples), random_idx]
-	# plt.hist(sample, bins=100, density=True)
-	# plt.show()
 	### make sure that samples are within limits 7 - 24 ###
 	for idx, sample in enumerate(samples):
 		while (sample < 7 and sample > 1) or sample > 24:
-			# data = 0 # this is a slow implementation
 			if sample > 24:
 				sample = sample -24
-			print("sample was ", sample)
-			# data = 0
+			# print("sample was ", sample)
 			data = distr["type"](size=(1,), **distr["kwargs"])
 			random_idx = np.random.choice(np.arange(num_distr), size=(1,), p=coefficients)
 			sample = data[0]
@@ -71,7 +66,17 @@ def generate_sample(num_samples):
 	return samples
 
 # print_samples_graph()
-samples = generate_sample(10000)
-print(samples)
-plt.hist(samples, bins=100, density=True)
-plt.show()
+def print_lots_generated_samples():
+	samples = generate_samples(10000)
+	# print(samples)
+	plt.hist(samples, bins=100, density=True)
+	plt.show()
+
+print_lots_generated_samples()
+
+### convert samples to dates ###
+# hours are already good, lets convert number 100 to minutes and seconds
+def sample_to_time(samples):
+	for number in samples:
+		hours = int(number)
+		hours = 
