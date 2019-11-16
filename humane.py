@@ -2,7 +2,7 @@
 # @Author: abbenteprizer
 # @Date:   2019-11-15 13:56:58
 # @Last Modified by:   abbenteprizer
-# @Last Modified time: 2019-11-16 22:53:12
+# @Last Modified time: 2019-11-16 23:28:11
 '''
 Humane schedules tasks following a distribution that mimics 
 internet traffic. 
@@ -116,7 +116,7 @@ def humane_sched(function, freq):
 def sched(function, freq): 
 	humane_sched(function, freq)
 	# change the time to run schedule jobs if you want
-	schedule.every().day.at("12:00").do(humane_sched, function, freq)
+	schedule.every().day.at("06:00").do(humane_sched, function, freq)
 	while True:
 		schedule.run_pending() # runs waiting tasks
 		time.sleep(1)
@@ -124,6 +124,6 @@ def sched(function, freq):
 def hello ():
 	print("hello at time ", datetime.datetime.now())
 
-# humane(hello, 100)
+# sched(hello, 100)
 
 

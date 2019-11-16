@@ -15,6 +15,11 @@ A function that you want to schedule and the frequency (given as number of times
 humane.sched(function, frequency)
 ```
 
+This command is a blocking operation. 
+
+## How it works
+When starting the scheduler the program will generate a list of scheduling date which has the size of frequency. The scheduler will then continuously (every second) check if any task should be executed. Each day the scheduler recalculates the list of scheduling dates to avoid repetition of the same dates every day, this is done by default at 6am. The scheduler only guarantees that it will try to execute the user specified function with the number of times as specified in frequency over the lapse of one day. If you start the scheduler after 7am (or before 1am) there is no easy way of determining the exact number of times the scheduler will execute the program that day.
+
 ## Example code
 The following programs will schedule the function "hello" 10000 times every day.
 ```
